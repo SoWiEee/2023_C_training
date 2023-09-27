@@ -2,9 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int
-main(void)
-{
+int main(void){
 	char color;
 
 	printf("Enter the Cylinder colors =>");       /*enter color for the associate content*/
@@ -12,8 +10,7 @@ main(void)
 
 
 	/*scan different cases and output the result of the associate content*/
-	switch (color)
-	{
+	switch (color){
 	case 'O':
 	case 'o':
 		printf("The associated content is ammnonia.");        /*in case "orange" ,the program will output a result "ammonia"*/
@@ -39,6 +36,6 @@ main(void)
 		break;
 	}
 
-	system("PAUSE");
-	return(0);
+	system("pause");
+	return 0;
 }
