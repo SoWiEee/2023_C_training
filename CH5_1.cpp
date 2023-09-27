@@ -2,14 +2,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-
-int digit(int n)
-{
+int digit(int n){
 	int digit,                     /*each digit of the number*/
 		sum=0;                     /*the sum of each digit*/
 
-	while (n != 0)
-	{
+	while (n != 0){
 		digit = n % 10;            /*get each digit*/
 		
 		printf("%d ", digit);
@@ -27,8 +24,7 @@ int digit(int n)
 	}
 }
 
-int main(void)
-{
+int main(void){
 	int n;                         /*the number you input*/
 
 	printf("Enter a number=>");    /*input the number*/
@@ -36,6 +32,6 @@ int main(void)
 
 	printf("\nWhether the number is divisible by 9?(yes=1,no=0)=>%d\n",digit(n));  /*output the result*/
 
-	system("PAUSE");
-	return(0);
+	system("pause");
+	return 0;
 }
