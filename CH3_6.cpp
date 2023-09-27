@@ -11,19 +11,14 @@ double fps(int m, double s)                   /*fps=>speed in feet per second*/
 	return(5280 / s);                              /*calculate the fps*/
 }
 
-double mps(int m, double s)                  /*mps=>speed in meters per second*/
-{
+double mps(int m, double s) {                /*mps=>speed in meters per second*/
 	m = m * 60;                                    /*turn minutes into seconds*/
 	s = m + s;
 	
 	return((5280.0 / 3282 * 1000) / s);            /*calculate the mps*/
 }
 
-
-
-int
-main(void)
-{
+int main(void){
 	int m;
 	double s;
 
@@ -48,6 +43,6 @@ main(void)
 	printf("The No.4 runner's mps is %lf\n", mps(m, s));
 
 
-	system("PAUSE");
-	return(0);
+	system("pause");
+	return 0;
 }
