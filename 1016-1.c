@@ -18,10 +18,10 @@ int main(){
     scanf("%d", &num);  // 154368
     
     if(digitSum(num, sum)%9 == 0){
-        printf("%d is divisibled by 9.", num);
+        printf("%d is divisible by 9.", num);
     }
     else{
-        printf("%d isn't divisibled by 9.", num);
+        printf("%d isn't divisible by 9.", num);
     }
     
     return 0;
