@@ -1,75 +1,93 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<stdlib.h>
 #include<ctype.h>
 
-/*
+
 enum State {
-	START = 1,
-	IDENTIFIER,
+	START = 0,
+	BUILD_NUM,
 	NUMBER,
 	BUILD_ID,
-	BUILD_NUM,
-	STOP
-}state;
-*/
+	IDENTIFIER,
+	STOP,
+	FLOAT_NUM
+};
+State cur = START;
 
 char buffer[100];
-int buffer_index = 0;
+int index = 0;
 
-void transition(char c, int* ptr) {
-	if (*ptr == 0) {	// start
+void transition(char c) {
+	if (cur == START) {	// start
 		if (isdigit(c)) {
-			*ptr = 1;	// 轉為 build_num
-			buffer_index = 0;
-			buffer[buffer_index++] = c;
+			cur = BUILD_NUM;	// 轉為 build_num
+			index = 0;
+			buffer[index++] = c;
 		}
 		else if (c == '.') {
-			*ptr = 5;	// 轉為 stop
+			cur = STOP;	// 轉為 stop
 		}
 		else if (isalpha(c)) {
-			*ptr = 3;	// 轉為 build_id
-			buffer_index = 0;
-			buffer[buffer_index++] = c;
-		}
+			cur = BUILD_ID;	// 轉為 build_id
+			_index = 0;
+			buffer[index++] = c;
+		
 	}
-	else if (*ptr == 1) {	// build_num
+	else if (cur == BUILD_NUM) {	// build_num
 		if (isdigit(c)) {
 			// 狀態不變
-			buffer[buffer_index++] = c;
+			buffer[index++] = c;
+		}
+		else if (c == '.') {
+			cur = FLOAT_NUM;    // 轉為 float_num
+			buffer[index++] = c;
 		}
 		else if (c == ' ') {
-			*ptr = 2;	// 轉為 number
-			buffer[buffer_index] = '\0';
+			cur = NUMBER;	// 轉為 number
+			buffer[index] = '\0';
 			printf("%s", buffer);	// output
 			printf(" - Number\n");
-			*ptr = 0;	// 轉為 start
+			cur = START;	// 轉為 start
 		}
 	}
-	else if (*ptr == 3) {	// build_id
-		if (isalpha(c) || isdigit(c) || c == '_') {
+	else if (cur == BUILD_ID) {	// build_id
+		if (isalnum(c) || c == '_') {
 			// 狀態不變
-			buffer[buffer_index++] = c;
+			buffer[index++] = c;
 		}
 		else if (c == ' ') {
-			*ptr = 4;	// 轉為 identifier
-			buffer[buffer_index] = '\0';
+			cur = IDENTIFIER;	// 轉為 identifier
+			buffer[index] = '\0';
 			printf("%s", buffer);	// output
 			printf(" - Identifier\n");
-			*ptr = 0;	// 轉為 start
+			cur = START;	// 轉為 start
 		}
 	}
-	else if (*ptr == 5) {	// stop
+	else if (cur == FLOAT_NUM) {    // float_num
+		if (isdigit(c)) {
+			// 狀態不變
+			buffer[index++] = c;
+		}
+		else if (c == ' ') {
+			cur = NUMBER;    // 轉為 number
+			buffer[index] = '\0';
+			printf("%s", buffer);    // output
+			printf(" - Float Number\n");
+			cur = START;    // 轉為 start
+		}
+	}
+	else if (cur == STOP) {	// stop
 		// 狀態不變
 	}
 }
 
 int main(void) {
 	char c;
-	int state = 0;
-	int* ptr = &state;
+	printf("Enter a string=> ");
 	while (1) {
 		scanf("%c", &c);
-		transition(c, ptr);
+		transition(c);
 		if (c == '\n') {
 			break;
 		}
