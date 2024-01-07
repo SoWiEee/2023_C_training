@@ -10,7 +10,9 @@ char maze[8][8] = { { ' ', ' ', ' ', ' ', 'X', 'X', ' ', 'X'},
 					{ ' ', ' ', 'X', ' ', ' ', 'X', 'X', 'X'},
 					{ 'X', ' ', ' ', ' ', 'X', 'X', ' ', ' '},
 					{ 'X', 'X', 'X', ' ', ' ', ' ', ' ', ' '},
-					{ 'X', ' ', 'X', ' ', 'X', 'X', ' ', ' '} };
+					{ 'X', ' ', 'X', ' ', 'X', 'X', ' ', ' '}};
+
+
 // initial point
 int x = 1, y = 0;
 // end point
@@ -26,12 +28,29 @@ void print_maze() {
 	printf("\n");
 }
 
+// print all coordination to (7,7)
+void printPath() {
+	printf("Path: ");
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++){
+			if (j == 7 && i == 7){
+				printf("(%d,%d)\n\n\n", X, Y);
+				break;
+			}
+			if (maze[i][j] == '*') {
+				printf("(%d,%d)->", i, j);
+			}
+		}
+	}
+}
+
 void visit(int x, int y){
 	// check (7,7)
 	if (x == X && y == Y){
 		find = 1;
 		maze[x][y] = '*';
 		print_maze();
+		printPath();
 		maze[x][y] = ' ';
 		return;
 	}
@@ -52,10 +71,10 @@ void visit(int x, int y){
 int main(void) {
 	visit(0, 1);
 	if (find == 1) {
-		printf("The path is exist\n");
+		printf("\nThe path is exist\n");
 	}
 	else {
-		printf("The path isn't exist\n");
+		printf("\nThe path isn't exist\n");
 	}
 
 	system("pause");
